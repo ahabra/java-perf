@@ -16,11 +16,18 @@ public class ReflectionRunner {
 	private final CallMonitor jdkReadField = CallMonitor.of("JdkReflect.readFields").task(jdkReflect::readFields);
 	private final CallMonitor jdkCallMethod = CallMonitor.of("JdkReflect.callMethod").task(jdkReflect::callMethod);
 
+	private final HandleInvoke handleInvoke = new HandleInvoke();
+	private final CallMonitor invokeField = CallMonitor.of("HandleInvoke.readFields").task(handleInvoke::readFields);
+	private final CallMonitor invokeMethod = CallMonitor.of("HandleInvoke.callMethod").task(handleInvoke::callMethod);
+
+
 	private void warmup() {
 		apacheReadField.repeat(WARMUP_COUNT).run();
 		apacheCallMethod.repeat(WARMUP_COUNT).run();
 		jdkReadField.repeat(WARMUP_COUNT).run();
 		jdkCallMethod.repeat(WARMUP_COUNT).run();
+		invokeField.repeat(WARMUP_COUNT).run();
+		invokeMethod.repeat(WARMUP_COUNT).run();
 	}
 
 	public List<CallMonitor> run() {
@@ -30,6 +37,8 @@ public class ReflectionRunner {
 		list.add(apacheCallMethod.repeat(COUNT).run());
 		list.add(jdkReadField.repeat(COUNT).run());
 		list.add(jdkCallMethod.repeat(COUNT).run());
+		list.add(invokeField.repeat(COUNT).run());
+		list.add(invokeMethod.repeat(COUNT).run());
 		return list;
 	}
 
