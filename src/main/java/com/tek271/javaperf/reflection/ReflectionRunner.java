@@ -12,9 +12,9 @@ public class ReflectionRunner {
 	private final CallMonitor apacheReadField = CallMonitor.of("ApacheReflect.readFields").task(apacheReflect::readFields);
 	private final CallMonitor apacheCallMethod = CallMonitor.of("ApacheReflect.callMethod").task(apacheReflect::callMethod);
 
-	private final JdkReflect jdkReflect = new JdkReflect();
-	private final CallMonitor jdkReadField = CallMonitor.of("JdkReflect.readFields").task(jdkReflect::readFields);
-	private final CallMonitor jdkCallMethod = CallMonitor.of("JdkReflect.callMethod").task(jdkReflect::callMethod);
+	private final ClassicReflect classicReflect = new ClassicReflect();
+	private final CallMonitor classicReadField = CallMonitor.of("ClassicReflect.readFields").task(classicReflect::readFields);
+	private final CallMonitor classicCallMethod = CallMonitor.of("ClassicReflect.callMethod").task(classicReflect::callMethod);
 
 	private final HandleInvoke handleInvoke = new HandleInvoke();
 	private final CallMonitor invokeField = CallMonitor.of("HandleInvoke.readFields").task(handleInvoke::readFields);
@@ -24,8 +24,8 @@ public class ReflectionRunner {
 	private void warmup() {
 		apacheReadField.repeat(WARMUP_COUNT).run();
 		apacheCallMethod.repeat(WARMUP_COUNT).run();
-		jdkReadField.repeat(WARMUP_COUNT).run();
-		jdkCallMethod.repeat(WARMUP_COUNT).run();
+		classicReadField.repeat(WARMUP_COUNT).run();
+		classicCallMethod.repeat(WARMUP_COUNT).run();
 		invokeField.repeat(WARMUP_COUNT).run();
 		invokeMethod.repeat(WARMUP_COUNT).run();
 	}
@@ -35,8 +35,8 @@ public class ReflectionRunner {
 		List<CallMonitor> list = new ArrayList<>();
 		list.add(apacheReadField.repeat(COUNT).run());
 		list.add(apacheCallMethod.repeat(COUNT).run());
-		list.add(jdkReadField.repeat(COUNT).run());
-		list.add(jdkCallMethod.repeat(COUNT).run());
+		list.add(classicReadField.repeat(COUNT).run());
+		list.add(classicCallMethod.repeat(COUNT).run());
 		list.add(invokeField.repeat(COUNT).run());
 		list.add(invokeMethod.repeat(COUNT).run());
 		return list;

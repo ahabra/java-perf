@@ -4,7 +4,7 @@ import com.google.common.base.Verify;
 
 import static com.tek271.javaperf.reflection.Book.HITCHHIKER;
 
-public class JdkReflect {
+public class ClassicReflect {
 
 	public void readFields() {
 		String title;
