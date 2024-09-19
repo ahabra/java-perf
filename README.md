@@ -9,5 +9,5 @@ Three approaches are tested:
 3. Using the `java.lang.invoke` VarHandle and MethodHandle (added in Java 1.7). Similar to classic.
 
 Observe that when using classic reflection or invoke package, the major performance gain is achieved because we 
-can get a reference to the method or the field, cach it , then reuse it during the repeated tests.
+can get a reference to the method or the field, cash it , then reuse it during the repeated tests.
 
