@@ -5,7 +5,7 @@ import com.google.common.base.Verify;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 
-import static com.tek271.javaperf.reflection.Book.HITCHHIKER;
+import static com.tek271.javaperf.model.Book.HITCHHIKER;
 
 public class ApacheReflect {
 

@@ -1,4 +1,4 @@
-package com.tek271.javaperf.reflection;
+package com.tek271.javaperf.model;
 
 public class Book {
 	public static final Book HITCHHIKER = new Book("The Hitchhiker's Guide to the Galaxy", 224);

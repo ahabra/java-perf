@@ -1,11 +1,12 @@
 package com.tek271.javaperf.reflection;
 
 import com.google.common.base.Verify;
+import com.tek271.javaperf.model.Book;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static com.tek271.javaperf.reflection.Book.HITCHHIKER;
+import static com.tek271.javaperf.model.Book.HITCHHIKER;
 
 public class ClassicReflect {
 	private static final Field TITLE_FIELD = getField(Book.class, "title");

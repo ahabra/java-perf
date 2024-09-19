@@ -1,13 +1,14 @@
 package com.tek271.javaperf.reflection;
 
 import com.google.common.base.Verify;
+import com.tek271.javaperf.model.Book;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.invoke.VarHandle;
 
-import static com.tek271.javaperf.reflection.Book.HITCHHIKER;
+import static com.tek271.javaperf.model.Book.HITCHHIKER;
 
 public class HandleInvoke {
 	private static final VarHandle TITLE = createFieldHandle(Book.class, "title", String.class);
