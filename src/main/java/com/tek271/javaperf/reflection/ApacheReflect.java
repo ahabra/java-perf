@@ -1,7 +1,7 @@
 package com.tek271.javaperf.reflection;
 
 
-import com.google.common.base.Verify;
+import com.tek271.javaperf.utils.Prove;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 
@@ -18,8 +18,8 @@ public class ApacheReflect {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		Verify.verify(HITCHHIKER.title.equals(title), "Title is different");
-		Verify.verify(HITCHHIKER.pages == pages, "pages is different");
+		Prove.equal(HITCHHIKER.title, title, "title");
+		Prove.equal(HITCHHIKER.pages, pages, "pages");
 	}
 
 	public void callMethod() {
@@ -29,7 +29,7 @@ public class ApacheReflect {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		Verify.verify(value == 736_064, "Value is " + value);
+		Prove.equal(736_064L, value, "value");
 	}
 
 

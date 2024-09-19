@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonRunner {
-	private static final int WARMUP_COUNT = 100;
-	private static final int COUNT = 1000_000;
+	private static final int WARMUP_COUNT = 10;
+	private static final int COUNT = 100_000;
 
 	private final JacksonMapper jacksonMapper = new JacksonMapper();
 	private final CallMonitor mapperMonitor = CallMonitor.of("JacksonMapper.parse")

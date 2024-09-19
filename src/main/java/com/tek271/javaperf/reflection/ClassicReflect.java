@@ -1,7 +1,7 @@
 package com.tek271.javaperf.reflection;
 
-import com.google.common.base.Verify;
 import com.tek271.javaperf.model.Book;
+import com.tek271.javaperf.utils.Prove;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -39,8 +39,8 @@ public class ClassicReflect {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		Verify.verify(HITCHHIKER.title.equals(title), "Title is different");
-		Verify.verify(HITCHHIKER.pages == pages, "pages is different");
+		Prove.equal(HITCHHIKER.title, title, "title");
+		Prove.equal(HITCHHIKER.pages, pages, "pages");
 	}
 
 	public void callMethod() {
@@ -50,7 +50,7 @@ public class ClassicReflect {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		Verify.verify(value == 736_064, "Value is " + value);
+		Prove.equal(736_064L, value, "value");
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.tek271.javaperf.reflection;
 
-import com.google.common.base.Verify;
 import com.tek271.javaperf.model.Book;
+import com.tek271.javaperf.utils.Prove;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -37,8 +37,8 @@ public class HandleInvoke {
 		String title = (String) TITLE.get(HITCHHIKER);
 		int pages = (Integer) PAGES.get(HITCHHIKER);
 
-		Verify.verify(HITCHHIKER.title.equals(title), "Title is different");
-		Verify.verify(HITCHHIKER.pages == pages, "pages is different");
+		Prove.equal(HITCHHIKER.title, title, "title");
+		Prove.equal(HITCHHIKER.pages, pages, "pages");
 	}
 
 	public void callMethod() {
@@ -48,7 +48,7 @@ public class HandleInvoke {
 		} catch (Throwable th) {
 			throw new RuntimeException(th);
 		}
-		Verify.verify(value == 736_064, "Value is " + value);
+		Prove.equal(736_064L, value, "value");
 	}
 
 }
