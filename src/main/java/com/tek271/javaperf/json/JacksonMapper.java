@@ -21,9 +21,7 @@ public class JacksonMapper {
 			throw new RuntimeException(e);
 		}
 
-		Prove.equal(HITCHHIKER.title, book.title, "title");
-		Prove.equal(HITCHHIKER.pages, book.pages, "pages");
-		Prove.equal(HITCHHIKER.author, book.author, "author");
+		Prove.equal(HITCHHIKER, book, "book");
 		return book;
 	}
 

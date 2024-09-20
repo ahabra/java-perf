@@ -11,3 +11,4 @@ Three approaches are tested:
 Observe that when using classic reflection or invoke package, the major performance gain is achieved because we 
 can get a reference to the method or the field, cash it , then reuse it during the repeated tests.
 
+## JSON Parsing

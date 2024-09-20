@@ -1,5 +1,8 @@
 package com.tek271.javaperf.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import static com.tek271.javaperf.model.Author.ADAMS;
 
 public class Book {
@@ -19,6 +22,16 @@ public class Book {
 
 	public long calcValue() {
 		return (long) title.chars().sum() * pages;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		return EqualsBuilder.reflectionEquals(this, o);
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 }
