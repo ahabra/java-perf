@@ -21,3 +21,11 @@ Two approaches are tested:
 1. Using `ObjectMapper`. Simple to implement. About 27 lines of code.
 2. Using `JsonParser`. Harder to implement. About 150 lines of code. About 10 times faster than using
 	 `ObjectMapper`.
+
+
+## Random Numbers
+
+## Primitive Collections
+Using `eclipse-collections:MutableIntList` for a list on integers compared with JDK `List` class.
+
+The `MutableIntList` is about 4 times faster than the JDK's `List`.
