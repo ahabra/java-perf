@@ -11,9 +11,9 @@ class JsonRunnerTest {
 
 	@Test
 	void runJsonParsingPerf() {
-		JsonRunner jsonRunner = new JsonRunner();
-		List<CallMonitor> list = jsonRunner.run();
-		list.forEach(cm -> System.out.println(cm));
+		JsonRunner runner = new JsonRunner();
+		List<CallMonitor> list = runner.run();
+		runner.printMonitors(list);
 	}
 
 }

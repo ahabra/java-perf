@@ -9,8 +9,8 @@ class ReflectionRunnerTest {
 
 	@Test
 	void doit() {
-		ReflectionRunner reflectionRunner = new ReflectionRunner();
-		List<CallMonitor> list = reflectionRunner.run();
-		list.forEach(cm -> System.out.println(cm));
+		ReflectionRunner runner = new ReflectionRunner();
+		List<CallMonitor> list = runner.run();
+		runner.printMonitors(list);
 	}
 }

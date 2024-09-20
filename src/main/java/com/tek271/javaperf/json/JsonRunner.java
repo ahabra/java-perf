@@ -1,11 +1,12 @@
 package com.tek271.javaperf.json;
 
 import com.tek271.javaperf.metrics.CallMonitor;
+import com.tek271.javaperf.metrics.PerformanceRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonRunner {
+public class JsonRunner extends PerformanceRunner {
 	private static final int WARMUP_COUNT = 10;
 	private static final int COUNT = 50_000;
 
@@ -23,6 +24,7 @@ public class JsonRunner {
 		fieldParserMonitor.repeat(WARMUP_COUNT).run();
 	}
 
+	@Override
 	public List<CallMonitor> run() {
 		warmup();
 		List<CallMonitor> list = new ArrayList<>();

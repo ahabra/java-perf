@@ -1,11 +1,12 @@
 package com.tek271.javaperf.reflection;
 
 import com.tek271.javaperf.metrics.CallMonitor;
+import com.tek271.javaperf.metrics.PerformanceRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReflectionRunner {
+public class ReflectionRunner extends PerformanceRunner {
 	private static final int WARMUP_COUNT = 100;
 	private static final int COUNT = 1000_000;
 	private final ApacheReflect apacheReflect = new ApacheReflect();
@@ -30,6 +31,7 @@ public class ReflectionRunner {
 		invokeMethod.repeat(WARMUP_COUNT).run();
 	}
 
+	@Override
 	public List<CallMonitor> run() {
 		warmup();
 		List<CallMonitor> list = new ArrayList<>();

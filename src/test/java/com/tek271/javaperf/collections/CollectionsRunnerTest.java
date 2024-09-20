@@ -13,6 +13,6 @@ class CollectionsRunnerTest {
 	void runCollections() {
 		CollectionsRunner runner = new CollectionsRunner();
 		List<CallMonitor> list = runner.run();
-		list.forEach(cm -> System.out.println(cm));
+		runner.printMonitors(list);
 	}
 }
