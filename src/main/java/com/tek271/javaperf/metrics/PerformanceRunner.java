@@ -1,12 +1,35 @@
 package com.tek271.javaperf.metrics;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class PerformanceRunner {
-	public abstract List<CallMonitor> run();
+	private final List<CallMonitor> callMonitors = new ArrayList<>();
 
-	public void printMonitors(List<CallMonitor> list) {
-		list.forEach(System.out::println);
+	public abstract int getWarmupCount();
+	public abstract int getRunCount();
+
+	public void addCallMonitor(CallMonitor callMonitor) {
+		callMonitors.add(callMonitor);
+	}
+
+	public void printMonitors() {
+		callMonitors.forEach(System.out::println);
+	}
+
+	private void run(int count) {
+		callMonitors.forEach(cm -> cm.repeat(count).run());
+	}
+
+	public List<CallMonitor> run() {
+		run(getWarmupCount());
+		run(getRunCount());
+		return callMonitors;
+	}
+
+	public void runAndPrint() {
+		run();
+		printMonitors();
 	}
 
 }
