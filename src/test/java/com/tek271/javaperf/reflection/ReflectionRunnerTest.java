@@ -6,7 +6,7 @@ class ReflectionRunnerTest {
 
 	@Test
 	void doit() {
-		new ReflectionRunner().runAndPrint();
+		new ReflectionRunner().warmupCount(100).runCount(1000_000).runAndPrint();
 	}
 
 }

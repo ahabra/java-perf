@@ -5,9 +5,18 @@ import java.util.List;
 
 public abstract class PerformanceRunner {
 	private final List<CallMonitor> callMonitors = new ArrayList<>();
+	private int warmupCount = 1;
+	private int runCount = 100;
 
-	public abstract int getWarmupCount();
-	public abstract int getRunCount();
+	public PerformanceRunner warmupCount(int warmupCount) {
+		this.warmupCount = warmupCount;
+		return this;
+	}
+
+	public PerformanceRunner runCount(int runCount) {
+		this.runCount = runCount;
+		return this;
+	}
 
 	public void addCallMonitor(CallMonitor callMonitor) {
 		callMonitors.add(callMonitor);
@@ -22,8 +31,8 @@ public abstract class PerformanceRunner {
 	}
 
 	public List<CallMonitor> run() {
-		run(getWarmupCount());
-		run(getRunCount());
+		run(warmupCount);
+		run(runCount);
 		return callMonitors;
 	}
 

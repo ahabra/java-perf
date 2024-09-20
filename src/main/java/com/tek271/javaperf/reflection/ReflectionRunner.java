@@ -5,16 +5,6 @@ import com.tek271.javaperf.metrics.PerformanceRunner;
 
 public class ReflectionRunner extends PerformanceRunner {
 
-	@Override
-	public int getWarmupCount() {
-		return 100;
-	}
-
-	@Override
-	public int getRunCount() {
-		return 1000_000;
-	}
-
 	public ReflectionRunner() {
 		ApacheReflect apacheReflect = new ApacheReflect();
 		addCallMonitor(CallMonitor.of("ApacheReflect.readFields").task(apacheReflect::readFields));

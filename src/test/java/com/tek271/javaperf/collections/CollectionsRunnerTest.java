@@ -6,6 +6,6 @@ class CollectionsRunnerTest {
 
 	@Test
 	void runCollections() {
-		new CollectionsRunner().runAndPrint();
+		new CollectionsRunner().warmupCount(10).runCount(2000).runAndPrint();
 	}
 }

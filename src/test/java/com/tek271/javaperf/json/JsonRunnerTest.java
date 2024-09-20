@@ -6,7 +6,7 @@ class JsonRunnerTest {
 
 	@Test
 	void runJsonParsingPerf() {
-		new JsonRunner().runAndPrint();
+		new JsonRunner().warmupCount(10).runCount(50_000).runAndPrint();
 	}
 
 }
