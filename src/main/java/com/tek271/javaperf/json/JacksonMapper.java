@@ -11,7 +11,6 @@ import static com.tek271.javaperf.model.Book.HITCHHIKER;
 public class JacksonMapper {
 	private static final String TEXT = FileTools.readResource("json/hitchhiker.json");
 
-
 	public Book parse() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		Book book;
