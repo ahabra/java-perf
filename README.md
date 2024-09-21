@@ -23,9 +23,15 @@ Two approaches are tested:
 	 `ObjectMapper`.
 
 
-## Random Numbers
-
 ## Primitive Collections
 Using `eclipse-collections:MutableIntList` for a list on integers compared with JDK `List` class.
 
 The `MutableIntList` is about 4 times faster than the JDK's `List`.
+
+## Random Numbers
+
+## Hashing
+
+## NIO servlets
+
+## RegEx

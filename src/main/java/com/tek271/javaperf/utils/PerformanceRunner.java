@@ -1,4 +1,4 @@
-package com.tek271.javaperf.metrics;
+package com.tek271.javaperf.utils;
 
 import java.util.ArrayList;
 import java.util.List;

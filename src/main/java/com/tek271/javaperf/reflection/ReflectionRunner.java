@@ -1,7 +1,7 @@
 package com.tek271.javaperf.reflection;
 
-import com.tek271.javaperf.metrics.CallMonitor;
-import com.tek271.javaperf.metrics.PerformanceRunner;
+import com.tek271.javaperf.utils.CallMonitor;
+import com.tek271.javaperf.utils.PerformanceRunner;
 
 public class ReflectionRunner extends PerformanceRunner {
 
