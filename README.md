@@ -38,11 +38,12 @@ Using several approaches to generate random numbers, next is a list ordered by p
 5. `SecureRandom.getInstanceStrong()`: About 8 times slower than Math.random()
 6. `new SecureRandom()`: About 30% slower than SecureRandom.getInstanceStrong()
 
-In general, the fastest approach is about 75 times slower than the slowest.
+In general, the fastest approach is about 75 times faster than the slowest.
 
 ### Recommendation:
 1. If you do not need a secure random, use ThreadLocalRandom.
 2. If you do need a secure random, use SecureRandom.getInstanceStrong()
+3. On some platforms, SecureRandom has the potential of blocking for long time. Be careful.
 
 
 ## Hashing
