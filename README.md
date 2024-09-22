@@ -29,9 +29,27 @@ Using `eclipse-collections:MutableIntList` for a list on integers compared with 
 The `MutableIntList` is about 4 times faster than the JDK's `List`.
 
 ## Random Numbers
+Using several approaches to generate random numbers, next is a list ordered by performance, fatser is first:
+
+1. `java.util.concurrent.ThreadLocalRandom` : this was the fastest in generating random numbers
+2. `java.util.Random` : about 5  times slower than ThreadLocalRandom
+3. `StrictMath.random()`: roughly in the same range as java.util.Random
+4. `Math.random()`: about 20% slower than StrictMath.random()
+5. `SecureRandom.getInstanceStrong()`: About 8 times slower than Math.random()
+6. `new SecureRandom()`: About 30% slower than SecureRandom.getInstanceStrong()
+
+In general, the fastest approach is about 75 times slower than the slowest.
+
+### Recommendation:
+1. If you do not need a secure random, use ThreadLocalRandom.
+2. If you do need a secure random, use SecureRandom.getInstanceStrong()
+
 
 ## Hashing
 
+
 ## NIO servlets
 
+
 ## RegEx
+

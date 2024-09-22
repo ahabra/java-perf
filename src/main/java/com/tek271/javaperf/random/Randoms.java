@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+@SuppressWarnings("UnusedReturnValue")
 public class Randoms {
 	private static final Random RANDOM = new Random();
 	private static final SecureRandom SECURE_RANDOM = new SecureRandom();
