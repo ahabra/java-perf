@@ -1,6 +1,7 @@
 package com.tek271.javaperf.utils;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class PerformanceRunner {
@@ -22,8 +23,14 @@ public abstract class PerformanceRunner {
 		callMonitors.add(callMonitor);
 	}
 
-	public void printMonitors() {
-		callMonitors.forEach(System.out::println);
+	public void printMonitors(boolean isSorted) {
+		if (isSorted) {
+			callMonitors.stream()
+					.sorted(Comparator.comparing(CallMonitor::getRunDurationNanos))
+					.forEach(System.out::println);
+		} else {
+			callMonitors.forEach(System.out::println);
+		}
 	}
 
 	private void run(int count) {
@@ -36,9 +43,12 @@ public abstract class PerformanceRunner {
 		return callMonitors;
 	}
 
-	public void runAndPrint() {
+	public void runAndPrint(boolean isSorted) {
 		run();
-		printMonitors();
+		printMonitors(isSorted);
 	}
 
+	public void runAndPrint() {
+		runAndPrint(false);
+	}
 }

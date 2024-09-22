@@ -6,6 +6,6 @@ class RandomRunnerTest {
 
 	@Test
 	void runRandoms() {
-		new RandomRunner().warmupCount(1000).runCount(1000_000).runAndPrint();
+		new RandomRunner().warmupCount(1000).runCount(1000_000).runAndPrint(true);
 	}
 }
