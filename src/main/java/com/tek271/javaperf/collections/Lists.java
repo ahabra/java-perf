@@ -1,7 +1,6 @@
 package com.tek271.javaperf.collections;
 
 import com.tek271.javaperf.utils.Prove;
-import org.eclipse.collections.api.factory.primitive.IntLists;
 import org.eclipse.collections.api.list.primitive.MutableIntList;
 import org.eclipse.collections.impl.list.mutable.primitive.IntArrayList;
 
