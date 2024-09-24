@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
+import static com.tek271.javaperf.utils.HexUtils.bytesToHex;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Sha256 {
@@ -31,15 +32,6 @@ public class Sha256 {
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	private String bytesToHex(byte[] bytes) {
-		StringBuilder sb = new StringBuilder();
-		for (byte b: bytes) {
-			sb.append(Character.forDigit((b >> 4) & 0xF, 16));
-			sb.append(Character.forDigit(b & 0xF, 16));
-		}
-		return sb.toString();
 	}
 
 	public String sha256_guava() {
