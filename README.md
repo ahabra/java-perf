@@ -48,6 +48,16 @@ In general, the fastest approach is about 75 times faster than the slowest.
 
 ## Hashing
 
+### Different SHA256 implementations
+
+Using several approaches:
+1. JDK standard MessageDigest. The fastest, but not by much.
+2. Apache commons codec. About 50% slower than #1.
+3. Guava. About twice as slow as #1.
+4. SHA3_256 JDK. About twice as slow as #1.
+5. SHA3_256 Apache commons Codec. About twice as slow as #1.
+6. SHA3_256 Keccak. About 5 times slower than #1.
+
 
 ## NIO servlets
 

@@ -14,6 +14,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class Sha256 {
 	private static final String TEXT = "Hello World 1234";
 
+	public Sha256() {
+		// used for sha3_256_keccak
+		Security.addProvider(new BouncyCastleProvider());
+	}
+
 	public String sha256_jdk() {
 		MessageDigest digest = getMessageDigestFor("SHA-256");
 		byte[] bytes = digest.digest(TEXT.getBytes(UTF_8));
@@ -56,9 +61,9 @@ public class Sha256 {
 	}
 
 	public String sha3_256_keccak() {
-		Security.addProvider(new BouncyCastleProvider());
 		MessageDigest digest = getMessageDigestFor("Keccak-256");
 		byte[] bytes = digest.digest(TEXT.getBytes(UTF_8));
+//		return bytesToHex(bytes);
 		return new String(Hex.encode(bytes));
 	}
 
