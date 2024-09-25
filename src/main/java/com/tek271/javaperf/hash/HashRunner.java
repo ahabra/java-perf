@@ -7,6 +7,7 @@ public class HashRunner extends PerformanceRunner {
 
 	public HashRunner() {
 		Sha256 sha256 = new Sha256();
+		Checksum checksum = new Checksum();
 
 		addCallMonitor(CallMonitor.of("Sha256:sha256_jdk").task(sha256::sha256_jdk));
 		addCallMonitor(CallMonitor.of("Sha256:sha256_guava").task(sha256::sha256_guava));
@@ -14,6 +15,8 @@ public class HashRunner extends PerformanceRunner {
 		addCallMonitor(CallMonitor.of("Sha256:sha3_256_jdk").task(sha256::sha3_256_jdk));
 		addCallMonitor(CallMonitor.of("Sha256:sha3_256_apacheCodec").task(sha256::sha3_256_apacheCodec));
 		addCallMonitor(CallMonitor.of("Sha256:sha3_256_keccak").task(sha256::sha3_256_keccak));
+
+		addCallMonitor(CallMonitor.of("Checksum:xxHash32").task(checksum::xxHash32));
 	}
 
 }

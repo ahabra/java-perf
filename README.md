@@ -56,9 +56,12 @@ Using several approaches:
 3. Guava.
 4. SHA3_256 JDK.
 5. SHA3_256 Apache commons Codec.
-6. SHA3_256 Keccak. About 5 times slower than #1.
+6. SHA3_256 Keccak. About 2 to 3 times slower than others.
 
 The first 5 approaches perform relatively at the same scale.
+
+If you do not need a secure hash, then there are faster and simple
+algorithms. Consider using `org.apache.commons.codec.digest.XXHash32`.
 
 
 ## NIO servlets

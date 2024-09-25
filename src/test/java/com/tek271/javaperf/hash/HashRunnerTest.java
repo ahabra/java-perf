@@ -8,7 +8,7 @@ class HashRunnerTest {
 
 	@Test
 	void testSha256() {
-		new HashRunner().warmupCount(1000).runCount(100_000).runAndPrint(true);
+		new HashRunner().warmupCount(1000).runCount(500_000).runAndPrint(true);
 	}
 
 	@Test

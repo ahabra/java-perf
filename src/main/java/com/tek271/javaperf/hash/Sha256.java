@@ -9,11 +9,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
-import static com.tek271.javaperf.utils.HexUtils.bytesToHex;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.apache.commons.codec.binary.Hex.encodeHexString;
 
 public class Sha256 {
 	private static final String TEXT = "Hello World 1234";
+	private static final String SHA_256 = "SHA-256";
+
 
 	public Sha256() {
 		// used for sha3_256_keccak
@@ -21,12 +23,11 @@ public class Sha256 {
 	}
 
 	public String sha256_jdk() {
-		MessageDigest digest = getMessageDigestFor("SHA-256");
-		byte[] bytes = digest.digest(TEXT.getBytes(UTF_8));
-		return bytesToHex(bytes);
+		byte[] bytes = getMessageDigestFor(SHA_256).digest(TEXT.getBytes(UTF_8));
+		return encodeHexString(bytes);
 	}
 
-	private MessageDigest getMessageDigestFor(String algorithm) {
+	private static MessageDigest getMessageDigestFor(String algorithm) {
 		try {
 			return MessageDigest.getInstance(algorithm);
 		} catch (NoSuchAlgorithmException e) {
@@ -45,7 +46,7 @@ public class Sha256 {
 	public String sha3_256_jdk() {
 		MessageDigest digest = getMessageDigestFor("SHA3-256");
 		byte[] bytes = digest.digest(TEXT.getBytes(UTF_8));
-		return bytesToHex(bytes);
+		return encodeHexString(bytes);
 	}
 
 	public String sha3_256_apacheCodec() {
