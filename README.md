@@ -71,4 +71,12 @@ algorithms. Consider using `org.apache.commons.codec.digest.XXHash32`.
 When the string to find/replace is simple, consider using `org.apache.commons.lang3.StringUtils.replace()`
 instead of `String.replaceAll()`, because replaceAll() takes a RegEx which can be slower.
 
-## HttpClient Bug
+## HttpClient
+Creating an instance of `HttpClient` is expensive, reuse the instance if you can.
+In an example where an HTTP GET (to same URL) is called 1000 times, reusing the instance 
+was 3 to 4 times faster and consumed about 1/3 of the memory.
+
+Instances of `HttpClient` are not quickly garbage collected, so creating a lot of instances could
+crash the JVM.
+
+## Math.fma (Fused Multiply Add)
