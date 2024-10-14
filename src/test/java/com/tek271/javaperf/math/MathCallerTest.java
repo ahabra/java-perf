@@ -18,8 +18,12 @@ class MathCallerTest {
 
 	@Test
 	void compareClassicWithFma() {
-		double a = 1.000_000_119_209_29;
-		double b = 53_400_708;
+//		double a = 1.000_000_119_209_29;
+//		double b = 53_400_708;
+//		double c = -b;
+
+		double a = 1.000_01;
+		double b = 100_000_000;
 		double c = -b;
 
 		double classic = a * b +  c;

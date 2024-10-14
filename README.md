@@ -64,9 +64,6 @@ If you do not need a secure hash, then there are faster and simple
 algorithms. Consider using `org.apache.commons.codec.digest.XXHash32`.
 
 
-## NIO servlets
-
-
 ## RegEx
 When the string to find/replace is simple, consider using `org.apache.commons.lang3.StringUtils.replace()`
 instead of `String.replaceAll()`, because replaceAll() takes a RegEx which can be slower.
@@ -80,3 +77,7 @@ Instances of `HttpClient` are not quickly garbage collected, so creating a lot o
 crash the JVM.
 
 ## Math.fma (Fused Multiply Add)
+`Math.fma(a, b, c)` returns `a * b + c` but it does only one rounding instead of two.
+
+The `fma` method is about 15% faster than hand-coding the calculation, and is more accurate.
+
