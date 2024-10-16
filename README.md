@@ -66,7 +66,9 @@ algorithms. Consider using `org.apache.commons.codec.digest.XXHash32`.
 
 ## RegEx
 When the string to find/replace is simple, consider using `org.apache.commons.lang3.StringUtils.replace()`
-instead of `String.replaceAll()`, because replaceAll() takes a RegEx which can be slower.
+instead of `String.replaceAll()`, because replaceAll() takes a RegEx.
+
+The `StringUtils.replace()` is about 50% faster than `String.replaceAll()`.
 
 ## HttpClient
 Creating an instance of `HttpClient` is expensive, reuse the instance if you can.
