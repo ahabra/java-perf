@@ -37,6 +37,7 @@ and it consumes less memory.
 * Supported primitives: boolean, char, byte, short, int, long, float, double
 * Supported collections: list, map, set, stack. 
 
+<div style="page-break-after: always"></div>
 
 ## Fused Multiply Add (FMA)
 In applications which heavily use floating point calculations like in machine learning, scientific
@@ -55,6 +56,7 @@ To enhance the calculation, you can use `Math.fma(a, b, c)` which will do only o
 
 The `fma()` method is about 15% faster than the hand-coded calculation.
 
+<div style="page-break-after: always"></div>
 
 ## JSON Parsing
 There are many JSON parsing libraries, one of the fast/popular ones is `com.fasterxml.jackson.core:jackson-databind`.
@@ -66,6 +68,7 @@ Two approaches are tested:
 2. Using `JsonParser`. Harder to implement. About 150 lines of code. About 10 times faster than using
 	 `ObjectMapper`.
 
+<div style="page-break-after: always"></div>
 
 ## HttpClient
 Creating an instance of `HttpClient` is expensive, reuse the instance if you can.
@@ -75,6 +78,7 @@ was 3 to 4 times faster and consumed about 1/3 of the memory.
 Instances of `HttpClient` are not quickly garbage collected, so creating a lot of instances could
 crash the JVM.
 
+<div style="page-break-after: always"></div>
 
 ## RegEx
 When the string to find/replace is simple, consider using `org.apache.commons.lang3.StringUtils.replace()`
@@ -82,6 +86,7 @@ instead of `String.replaceAll()`, because replaceAll() takes a RegEx.
 
 The `StringUtils.replace()` is about 50% faster than `String.replaceAll()`.
 
+<div style="page-break-after: always"></div>
 
 ## Random Numbers
 Using several approaches to generate random numbers, next is a list ordered by performance, fatser is first:
@@ -99,6 +104,7 @@ In general, the fastest approach is about 75 times faster than the slowest.
 2. If you do need a secure random, use `SecureRandom.getInstanceStrong()`
 3. On some OS platforms, SecureRandom has the potential of blocking for long time. Be careful.
 
+<div style="page-break-after: always"></div>
 
 ## Hashing
 To produce secure _SHA256_ hashes, there are several options:
@@ -112,10 +118,10 @@ To produce secure _SHA256_ hashes, there are several options:
 
 The first 5 approaches perform relatively at the same scale.
 
-
 If you do not need a secure hash, then there are faster and simple
 algorithms. Consider using `org.apache.commons.codec.digest.XXHash32`.
 
+<div style="page-break-after: always"></div>
 
 ## Reflection
 Three approaches are tested:
@@ -128,6 +134,7 @@ Observe that when using classic reflection or invoke package, the major performa
 achieved because we can get a reference to the method or the field, cash it , then reuse
 it during the repeated invocations.
 
+<div style="page-break-after: always"></div>
 
 ## References
 1. This presentation:
