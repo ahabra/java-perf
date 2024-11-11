@@ -23,7 +23,7 @@ List<Integer> ok = List.of(1, 2, 3);
 List<int> notOk = List.of(1, 2, 3);  // compiler error
 ```
 
-You can use the `eclipse-collections-api` library which provide primitives
+You can use the `eclipse-collections-api` library which provides primitives
 collections types like `IntArrayList`.
 
 ```java
@@ -54,7 +54,7 @@ Two roundings can occur:
 
 To enhance the calculation, you can use `Math.fma(a, b, c)` which will do only one rounding.
 
-The `fma()` method is about 15% faster than the hand-coded calculation.
+The `fma()` method is about 15% faster (in Java 17) than the hand-coded calculation.
 
 <div style="page-break-after: always"></div>
 
@@ -93,11 +93,11 @@ Using several approaches to generate random numbers, next is a list ordered by p
 
 1. `java.util.concurrent.ThreadLocalRandom` : this was the fastest in generating random numbers
 2. `java.util.Random` : about 5  times slower than `ThreadLocalRandom`
-4. `Math.random()`: about 20% slower than `java.util.Random`
-5. `SecureRandom.getInstanceStrong()`: About 8 times slower than `Math.random()`
-6. `new SecureRandom()`: About 30% slower than `SecureRandom.getInstanceStrong()`
+3. `StrictMath.random()`: about 6 times slower than ThreadLocalRandom
+4. `Math.random()`: about 10 times slower than `ThreadLocalRandom`
+5. `SecureRandom.getInstanceStrong()`: about 100 times slower than `ThreadLocalRandom`
+6. `new SecureRandom()`: about 110 times slower than `ThreadLocalRandom`
 
-In general, the fastest approach is about 75 times faster than the slowest.
 
 ### Recommendation:
 1. If you do not need a secure random, use `ThreadLocalRandom`.
@@ -116,9 +116,9 @@ To produce secure _SHA256_ hashes, there are several options:
 5. SHA3_256 Apache commons Codec.
 6. SHA3_256 Keccak. About 2 to 3 times slower than others.
 
-The first 5 approaches perform relatively at the same scale.
+The first 5 approaches perform relatively at the same scale, but SHA3 is slower than SHA2.
 
-If you do not need a secure hash, then there are faster and simple
+If you do not need a secure hash, then there are faster and simpler
 algorithms. Consider using `org.apache.commons.codec.digest.XXHash32`.
 
 <div style="page-break-after: always"></div>

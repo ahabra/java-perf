@@ -4,6 +4,8 @@ package com.tek271.javaperf.math;
 import com.tek271.javaperf.utils.CallMonitor;
 import com.tek271.javaperf.utils.PerformanceRunner;
 
+import java.math.BigDecimal;
+
 import static com.tek271.javaperf.utils.PrintUtils.printlnDouble;
 
 public class MathRunner extends PerformanceRunner {
@@ -20,6 +22,12 @@ public class MathRunner extends PerformanceRunner {
 			sums[1] = Math.fma(result, 1.0, sums[1]);
 
 		}));
+
+		addCallMonitor(CallMonitor.of("MathCaller:multiplyAndAdd_bigDecimal").task(() -> {
+			BigDecimal result = mathCaller.multiplyAndAdd_bigDecimal();
+			sums[1] = result.add(BigDecimal.valueOf(sums[1])).doubleValue();
+		}));
+
 	}
 
 	public void printSums() {
