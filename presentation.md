@@ -56,14 +56,16 @@ You can use the `eclipse-collections-api` library which provides primitives
 collections types like `IntArrayList`.
 
 ```java
-IntArrayList list = new IntArrayList();
-list.add(1);
+void usingPrimitivesList() {
+	IntArrayList list = new IntArrayList();
+	list.add(1);
+}
 ```
 
 `IntArrayList` is about __4 times faster__ than the JDK `List<Integer>`,
 and it consumes less memory.
 
-* Supported primitives: boolean, char, byte, short, int, long, float, double
+* Supported primitives: `boolean`, `char`, `byte`, `short`, `int`, `long`, `float`, `double`
 * Supported collections: list, map, set, stack. 
 
 <div style="page-break-after: always"></div>
@@ -97,6 +99,67 @@ Two approaches are tested:
 2. Using `JsonParser`. Harder to implement. About 150 lines of code. About 10 times faster than using
 	 `ObjectMapper`.
 
+### JSON Parsing With ObjectMapper Example
+```java
+ObjectMapper objectMapper = new ObjectMapper();
+Book book = objectMapper.readValue(jsonText, Book.class);
+```
+
+### JSON Parsing With JsonParser Example
+```java
+
+// Example only. Do NOT use in production
+Book parseToBook(String jsonText) throws Exception {
+	JsonParser parser = new JsonFactory().createParser(jsonText);
+	Book book = new Book();
+
+	parser.nextToken();
+	while (true) {
+		JsonToken token = parser.nextToken();
+		if (token == null || token == JsonToken.END_OBJECT) break;
+
+		String fieldName = parser.currentName();
+		if (fieldName == null) {
+			skipCurrentNode(parser);
+			break;
+		}
+
+		if (fieldName.equals("title")) {
+			book.title = nextValueAsString(parser);
+		} else if (fieldName.equals("pages")) {
+			book.pages = nextValueAsInt(parser);
+		} else if (fieldName.equals("author")) {
+			book.author = nextValueAsString(parser);
+		} else {
+			skipCurrentNode(parser);
+		}
+	}
+	parser.close();
+	return book;
+}
+
+void skipCurrentNode(JsonParser parser) throws IOException {
+	JsonToken token = parser.nextToken();
+	if (token.isScalarValue() || token.isStructEnd()) {
+		return;
+	}
+
+	if (token.isStructStart()) {
+		skipCurrentNode(parser);
+	}
+}
+
+String nextValueAsString(JsonParser parser) throws IOException {
+	parser.nextToken();
+	return parser.getValueAsString();
+}
+
+int nextValueAsInt(JsonParser parser) throws IOException {
+	parser.nextToken();
+	return parser.getIntValue();
+}
+```
+
 <div style="page-break-after: always"></div>
 
 ## 6. HttpClient
@@ -118,7 +181,7 @@ The `StringUtils.replace()` is about 50% faster than `String.replaceAll()`.
 <div style="page-break-after: always"></div>
 
 ## 8. Random Numbers
-Using several approaches to generate random numbers, next is a list ordered by performance, fatser is first:
+Several approaches to generate random numbers, next is a list ordered by performance, faster is first:
 
 1. `java.util.concurrent.ThreadLocalRandom` : this was the fastest in generating random numbers
 2. `java.util.Random` : about 5  times slower than `ThreadLocalRandom`
@@ -136,6 +199,17 @@ Using several approaches to generate random numbers, next is a list ordered by p
 <div style="page-break-after: always"></div>
 
 ## 9. Hashing
+
+### Definition
+1. __Hashing__: Convert data to a random-looking string
+2. Same data will __always__ generate the same hash string 
+3. Different data can _in theory_ produce the same hash string, this is called _collision_
+4. Hashing functions attempt to minimize collisions 
+5. Secure hashing functions attempt to hinder converting the hash string to original value 
+6. Hash algorithms examples: MD5, CRC, Murmum, SHA1 (20 bytes), SHA256 (32 bytes), SHA512 (64 bytes)
+7. For secure hashing, use at least (Secure Hash Algorithm 256 bits) SHA256
+
+### Algorithms
 To produce secure _SHA256_ hashes, there are several options:
 
 1. JDK standard MessageDigest.
@@ -143,9 +217,11 @@ To produce secure _SHA256_ hashes, there are several options:
 3. Guava.
 4. SHA3_256 JDK.
 5. SHA3_256 Apache commons Codec.
-6. SHA3_256 Keccak. About 2 to 3 times slower than others.
+6. SHA3_256 Keccak (Sounds like Ketchak) (Bouncy Castle Library). About 2 to 3 times slower than others.
 
-The first 5 approaches perform relatively at the same scale, but SHA3 is slower than SHA2.
+* The first 5 approaches perform relatively at the same scale
+* SHA3 is newer, slower, and supposed to be more secure than SHA2
+
 
 If you do not need a secure hash, then there are faster and simpler
 algorithms. Consider using `org.apache.commons.codec.digest.XXHash32`.
