@@ -201,11 +201,12 @@ Several approaches to generate random numbers, next is a list ordered by perform
 ### Definition
 1. __Hashing__: Convert data to a random-looking string
 2. Same data will __always__ generate the same hash string 
-3. Different data can _in theory_ produce the same hash string, this is called _collision_
-4. Hashing functions attempt to minimize collisions 
-5. Secure hashing functions attempt to hinder converting the hash string to original value 
-6. Hash algorithms examples: MD5, CRC, Murmum, SHA1 (20 bytes), SHA256 (32 bytes), SHA512 (64 bytes)
-7. For secure hashing, use at least (Secure Hash Algorithm 256 bits) SHA256
+3. Different data, ideally, __should__ generate different hash string
+4. Different data can _in theory_ produce the same hash string, this is called _collision_
+5. Hashing functions attempt to minimize collisions 
+6. Secure hashing functions attempt to hinder converting the hash string to original value 
+7. Hash algorithms examples: MD5, CRC, Murmum, SHA1 (20 bytes), SHA256 (32 bytes), SHA512 (64 bytes)
+8. For secure hashing, use at least (Secure Hash Algorithm 256 bits) SHA256
 
 ### Algorithms
 To produce secure _SHA256_ hashes, there are several options:
@@ -236,6 +237,41 @@ Three approaches are tested:
 Observe that when using classic reflection or invoke package, the major performance gain is
 achieved because we can get a reference to the method or the field, cash it , then reuse
 it during the repeated invocations.
+
+### Examples
+Suppose that we have a Book object like this 
+
+```java
+public class Book {
+  public String title;
+  public int pages;
+  public String author;
+
+  public Book(String title, int pages, String author) { /* ... */ }
+}
+```
+
+Use reflection to read one of its fields:
+
+```java
+Book book = new Book("Cat in the Hat", 20, "Dr. Seuss");
+
+String getTitle_apache() {
+  return (String) FieldUtils.readField(book, "title");
+}
+
+String getTitle_classicReflect() throws Exception {
+  Field titleField = Book.class.getField("title");
+  return (String) titleField.get(book);
+}
+
+String getTitle_handle() {
+  MethodHandles.Lookup lookup = MethodHandles.lookup().in(Book.class);
+  VarHandle varHandle = lookup.findVarHandle(Book.class, "title", String.class);
+  return (String) varHandle.get(book);
+}
+```
+
 
 <div style="page-break-after: always"></div>
 
