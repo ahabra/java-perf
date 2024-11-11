@@ -3,10 +3,28 @@
 
 * Presented by: **Abdul Habra**, @ahabra
 * 2024.11.16
+* https://github.com/ahabra/java-perf
 
-## Introduction
+
+## Table of Contents
+1. Introduction
+2. The Usual Suspects
+3. Collections
+4. Fused Multiply Add (FMA)
+5. JSON Parsing
+6. HttpClient
+7. RegEx
+8. Random Numbers
+9. Hashing
+10. Reflection
+11. References
+
+<div style="page-break-after: always"></div>
+
+## 1. Introduction
+
 * You should be experienced with Java
-* Build your system to be valid and well-designed
+* Build the system to be valid and well-designed
 * _Premature optimization is the root of all evil_ -- Donald Knuth
 * Understand the bottlenecks of your program before attempting to optimize
 * Will point at different approaches to increase the performance of Java programs.
@@ -14,7 +32,18 @@
 
 <div style="page-break-after: always"></div>
 
-## Collections
+## 2. The Usual Suspects
+
+The following approaches are the usual recommendations, and are well documented in the literature.
+
+* StringBuilder: For String concatenation in conditionals and loops
+* Caching/Memoization/Pooling
+* In JDBC Use Prepared Statement instead of Statement
+* When logging, check the log level before you call the log statement
+
+<div style="page-break-after: always"></div>
+
+## 3. Collections
 When dealing with a List (or other collection types) of a primitive type,
 Java generics will use the wrapper type, for example:
 
@@ -39,7 +68,7 @@ and it consumes less memory.
 
 <div style="page-break-after: always"></div>
 
-## Fused Multiply Add (FMA)
+## 4. Fused Multiply Add (FMA)
 In applications which heavily use floating point calculations like in machine learning, scientific
 measurements, or financial applications, a common calculation happens:
 
@@ -58,7 +87,7 @@ The `fma()` method is about 15% faster (in Java 17) than the hand-coded calculat
 
 <div style="page-break-after: always"></div>
 
-## JSON Parsing
+## 5. JSON Parsing
 There are many JSON parsing libraries, one of the fast/popular ones is `com.fasterxml.jackson.core:jackson-databind`.
 It is tested here.
 
@@ -70,7 +99,7 @@ Two approaches are tested:
 
 <div style="page-break-after: always"></div>
 
-## HttpClient
+## 6. HttpClient
 Creating an instance of `HttpClient` is expensive, reuse the instance if you can.
 In an example where an HTTP GET (to same URL) is called 1000 times, reusing the instance
 was 3 to 4 times faster and consumed about 1/3 of the memory.
@@ -80,7 +109,7 @@ crash the JVM.
 
 <div style="page-break-after: always"></div>
 
-## RegEx
+## 7. RegEx
 When the string to find/replace is simple, consider using `org.apache.commons.lang3.StringUtils.replace()`
 instead of `String.replaceAll()`, because replaceAll() takes a RegEx.
 
@@ -88,7 +117,7 @@ The `StringUtils.replace()` is about 50% faster than `String.replaceAll()`.
 
 <div style="page-break-after: always"></div>
 
-## Random Numbers
+## 8. Random Numbers
 Using several approaches to generate random numbers, next is a list ordered by performance, fatser is first:
 
 1. `java.util.concurrent.ThreadLocalRandom` : this was the fastest in generating random numbers
@@ -106,7 +135,7 @@ Using several approaches to generate random numbers, next is a list ordered by p
 
 <div style="page-break-after: always"></div>
 
-## Hashing
+## 9. Hashing
 To produce secure _SHA256_ hashes, there are several options:
 
 1. JDK standard MessageDigest.
@@ -123,7 +152,7 @@ algorithms. Consider using `org.apache.commons.codec.digest.XXHash32`.
 
 <div style="page-break-after: always"></div>
 
-## Reflection
+## 10. Reflection
 Three approaches are tested:
 
 1. Using `org.apache.commons.lang3.reflect`  FieldUtils and MethodUtils. This is the slowest approach.
@@ -137,6 +166,7 @@ it during the repeated invocations.
 <div style="page-break-after: always"></div>
 
 ## References
-1. This presentation:
-		* https://github.com/ahabra/java-perf
-2. **TODO**
+1. https://www.bairesdev.com/blog/java-performance-tuning-tips/
+2. https://raygun.com/blog/java-performance-optimization-tips/
+3. https://stackify.com/java-performance-tuning/
+4. https://stratoflow.com/improve-java-performance/
