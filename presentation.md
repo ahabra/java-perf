@@ -57,8 +57,8 @@ collections types like `IntArrayList`.
 
 ```java
 void usingPrimitivesList() {
-	IntArrayList list = new IntArrayList();
-	list.add(1);
+  IntArrayList list = new IntArrayList();
+  list.add(1);
 }
 ```
 
@@ -110,53 +110,51 @@ Book book = objectMapper.readValue(jsonText, Book.class);
 
 // Example only. Do NOT use in production
 Book parseToBook(String jsonText) throws Exception {
-	JsonParser parser = new JsonFactory().createParser(jsonText);
-	Book book = new Book();
-
-	parser.nextToken();
-	while (true) {
-		JsonToken token = parser.nextToken();
-		if (token == null || token == JsonToken.END_OBJECT) break;
-
-		String fieldName = parser.currentName();
-		if (fieldName == null) {
-			skipCurrentNode(parser);
-			break;
-		}
-
-		if (fieldName.equals("title")) {
-			book.title = nextValueAsString(parser);
-		} else if (fieldName.equals("pages")) {
-			book.pages = nextValueAsInt(parser);
-		} else if (fieldName.equals("author")) {
-			book.author = nextValueAsString(parser);
-		} else {
-			skipCurrentNode(parser);
-		}
-	}
-	parser.close();
-	return book;
+  JsonParser parser = new JsonFactory().createParser(jsonText);
+  Book book = new Book();
+  
+  parser.nextToken();
+  while (true) {
+    JsonToken token = parser.nextToken();
+    if (token == null || token == JsonToken.END_OBJECT) break;
+    
+    String fieldName = parser.currentName();
+    if (fieldName == null) {
+      skipCurrentNode(parser);
+      break;
+    }
+    if (fieldName.equals("title")) {
+      book.title = nextValueAsString(parser);
+    } else if (fieldName.equals("pages")) {
+      book.pages = nextValueAsInt(parser);
+    } else if (fieldName.equals("author")) {
+      book.author = nextValueAsString(parser);
+    } else {
+      skipCurrentNode(parser);
+    }
+  }
+  parser.close();
+  return book;
 }
 
 void skipCurrentNode(JsonParser parser) throws IOException {
-	JsonToken token = parser.nextToken();
-	if (token.isScalarValue() || token.isStructEnd()) {
-		return;
-	}
-
-	if (token.isStructStart()) {
-		skipCurrentNode(parser);
-	}
+  JsonToken token = parser.nextToken();
+  if (token.isScalarValue() || token.isStructEnd()) {
+    return;
+  }
+  if (token.isStructStart()) {
+    skipCurrentNode(parser);
+  }
 }
 
 String nextValueAsString(JsonParser parser) throws IOException {
-	parser.nextToken();
-	return parser.getValueAsString();
+  parser.nextToken();
+  return parser.getValueAsString();
 }
 
 int nextValueAsInt(JsonParser parser) throws IOException {
-	parser.nextToken();
-	return parser.getIntValue();
+  parser.nextToken();
+  return parser.getIntValue();
 }
 ```
 
