@@ -30,6 +30,19 @@
 * Will point at different approaches to increase the performance of Java programs.
 * Will NOT discuss JVM fine-tuning, or scaling.
 
+
+In the following sections, we will use a `Book` class defined as follows:
+
+```java
+public class Book {
+  public String title;
+  public int pages;
+  public String author;
+
+  public Book(String title, int pages, String author) { /* ... */ }
+}
+```
+
 <div style="page-break-after: always"></div>
 
 ## 2. The Usual Suspects
@@ -77,7 +90,7 @@ measurements, or financial applications, a common calculation happens:
 1. Multiply two numbers
 2. Add the product to an accumulator
 
-Or simply calculate `a * b + c` when a, b, and c are `float` or `double`.
+Or simply calculate `a * b + c` where a, b, and c are `float` or `double`.
 
 Two roundings can occur: 
 * when multiplying a and b. 
@@ -95,9 +108,20 @@ It is tested here.
 
 Two approaches are tested:
 
-1. Using `ObjectMapper`. Simple to implement. About 25 lines of code.
-2. Using `JsonParser`. Harder to implement. About 150 lines of code. About 10 times faster than using
+1. Using `ObjectMapper`. Simple to implement.
+2. Using `JsonParser`. Harder to implement. About 10 times faster than using
 	 `ObjectMapper`.
+
+Suppose we have the following JSON string describing a book:
+
+```json
+{
+  "title": "Cat in the Hat",
+  "pages": 20,
+  "author": "Dr. Seuss"
+}
+```
+
 
 ### JSON Parsing With ObjectMapper Example
 ```java
@@ -107,7 +131,6 @@ Book book = objectMapper.readValue(jsonText, Book.class);
 
 ### JSON Parsing With JsonParser Example
 ```java
-
 // Example only. Do NOT use in production
 Book parseToBook(String jsonText) throws Exception {
   JsonParser parser = new JsonFactory().createParser(jsonText);
@@ -181,7 +204,7 @@ The `StringUtils.replace()` is about 50% faster than `String.replaceAll()`.
 ## 8. Random Numbers
 Several approaches to generate random numbers, next is a list ordered by performance, faster is first:
 
-1. `java.util.concurrent.ThreadLocalRandom` : this was the fastest in generating random numbers
+1. `java.util.concurrent.ThreadLocalRandom` : the fastest in generating random numbers
 2. `java.util.Random` : about 5  times slower than `ThreadLocalRandom`
 3. `StrictMath.random()`: about 6 times slower than ThreadLocalRandom
 4. `Math.random()`: about 10 times slower than `ThreadLocalRandom`
@@ -201,10 +224,10 @@ Several approaches to generate random numbers, next is a list ordered by perform
 ### Definition
 1. __Hashing__: Convert data to a random-looking string
 2. Same data will __always__ generate the same hash string 
-3. Different data, ideally, __should__ generate different hash string
+3. Different data, ideally, __should__ generate different hash strings
 4. Different data can _in theory_ produce the same hash string, this is called _collision_
 5. Hashing functions attempt to minimize collisions 
-6. Secure hashing functions attempt to hinder converting the hash string to original value 
+6. Secure hashing functions attempt to hinder converting the hash string to its original value 
 7. Hash algorithms examples: MD5, CRC, Murmum, SHA1 (20 bytes), SHA256 (32 bytes), SHA512 (64 bytes)
 8. For secure hashing, use at least (Secure Hash Algorithm 256 bits) SHA256
 
@@ -239,33 +262,24 @@ achieved because we can get a reference to the method or the field, cash it , th
 it during the repeated invocations.
 
 ### Examples
-Suppose that we have a Book object like this 
-
-```java
-public class Book {
-  public String title;
-  public int pages;
-  public String author;
-
-  public Book(String title, int pages, String author) { /* ... */ }
-}
-```
-
-Use reflection to read one of its fields:
+Use reflection to read one of the `Book` fields:
 
 ```java
 Book book = new Book("Cat in the Hat", 20, "Dr. Seuss");
 
+// slow
 String getTitle_apache() {
   return (String) FieldUtils.readField(book, "title");
 }
 
+// fast
 String getTitle_classicReflect() throws Exception {
   Field titleField = Book.class.getField("title");
   return (String) titleField.get(book);
 }
 
-String getTitle_handle() {
+// supposed to be faster
+String getTitle_handle() throws Exception {
   MethodHandles.Lookup lookup = MethodHandles.lookup().in(Book.class);
   VarHandle varHandle = lookup.findVarHandle(Book.class, "title", String.class);
   return (String) varHandle.get(book);
