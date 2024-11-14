@@ -294,3 +294,4 @@ String getTitle_handle() throws Exception {
 2. https://raygun.com/blog/java-performance-optimization-tips/
 3. https://stackify.com/java-performance-tuning/
 4. https://stratoflow.com/improve-java-performance/
+5. https://codecoda.com/en/blog/entry/ways-to-improve-your-java-performance
