@@ -24,11 +24,12 @@
 ## 1. Introduction
 
 * You should be experienced with Java
+* Law of two-feet
 * Build the system to be valid and well-designed
 * _Premature optimization is the root of all evil_ -- Donald Knuth
 * Understand the bottlenecks of your program before attempting to optimize
 * Will point at different approaches to increase the performance of Java programs.
-* Will NOT discuss JVM fine-tuning, or scaling.
+* Will NOT discuss JVM fine-tuning, scaling, or distributed computing.
 
 
 In the following sections, we will use a `Book` class defined as follows:
