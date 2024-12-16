@@ -1,8 +1,7 @@
 # High Performance Computing with Java
-### Windsor-Essex GDG DevFest 2024
 
 * Presented by: **Abdul Habra**, @ahabra
-* 2024.11.16
+* 2024.12.16
 * https://github.com/ahabra/java-perf
 
 
@@ -24,9 +23,9 @@
 ## 1. Introduction
 
 * You should be experienced with Java
-* Law of two-feet
+* Law of two-feet 🍅👣
 * Build the system to be valid and well-designed
-* _Premature optimization is the root of all evil_ -- Donald Knuth
+* _Premature optimization is the root of all evil_ -- Donald Knuth 🍅🤓
 * Understand the bottlenecks of your program before attempting to optimize
 * Will point at different approaches to increase the performance of Java programs.
 * Will NOT discuss JVM fine-tuning, scaling, or distributed computing.
@@ -50,10 +49,41 @@ public class Book {
 
 The following approaches are the usual recommendations, and are well documented in the literature.
 
-* StringBuilder: For String concatenation in conditionals and loops
 * Caching/Memoization/Pooling
 * In JDBC Use Prepared Statement instead of Statement
 * When logging, check the log level before you call the log statement
+* StringBuilder: For String concatenation in conditionals and loops
+
+### Which toString() is Faster 🍅🤓
+
+```java
+// Book.toString() options
+
+public String toString_concat() {
+  return "Title=" + title + ", Pages=" + pages + ", Author=" + author();
+}
+
+public String toString_StringBuilder() {
+  StringBuilder sb = new StringBuilder();
+  sb.append("Title=").append(title);
+  sb.append(", Pages=").append(pages);
+  sb.append(", Author=").append(author);
+  return sb.toString();
+}
+
+public String toString_reflection() {
+  ToStringBuilder.reflectionToString(this, SIMPLE_STYLE);
+}
+
+public String toString_builder() {
+  return new ToStringBuilder(this, SIMPLE_STYLE).
+      append("Title", title)
+      .append("Pages", pages)
+      .append("Author", author)
+      .toString();
+}
+
+```
 
 <div style="page-break-after: always"></div>
 
@@ -94,23 +124,26 @@ measurements, or financial applications, a common calculation happens:
 Or simply calculate `a * b + c` where a, b, and c are `float` or `double`.
 
 Two roundings can occur: 
-* when multiplying a and b. 
-* when adding the product to c.
+* What are they? 🍅🤓
+	1. when multiplying a and b. 
+	2. when adding the product to c.
 
 To enhance the calculation, you can use `Math.fma(a, b, c)` which will do only one rounding.
 
 The `fma()` method is about 15% faster (in Java 17) than the hand-coded calculation.
 
+Look at `MathCallerTest.java` for an example showing this problem.
+
 <div style="page-break-after: always"></div>
 
 ## 5. JSON Parsing
 There are many JSON parsing libraries, one of the fast/popular ones is `com.fasterxml.jackson.core:jackson-databind`.
-It is tested here.
+It is tested here. (_The issue here is similar to the old XML parsing DOM vs SAX_)
 
 Two approaches are tested:
 
 1. Using `ObjectMapper`. Simple to implement.
-2. Using `JsonParser`. Harder to implement. About 10 times faster than using
+2. Using `JsonParser`. Harder to implement. About __10 times faster__ than using
 	 `ObjectMapper`.
 
 Suppose we have the following JSON string describing a book:
@@ -209,7 +242,7 @@ Several approaches to generate random numbers, next is a list ordered by perform
 2. `java.util.Random` : about 5  times slower than `ThreadLocalRandom`
 3. `StrictMath.random()`: about 6 times slower than ThreadLocalRandom
 4. `Math.random()`: about 10 times slower than `ThreadLocalRandom`
-5. `SecureRandom.getInstanceStrong()`: about 100 times slower than `ThreadLocalRandom`
+5. `SecureRandom.getInstanceStrong()`: about 100 times slower than `ThreadLocalRandom` (added in Java 8)
 6. `new SecureRandom()`: about 110 times slower than `ThreadLocalRandom`
 
 
@@ -221,6 +254,7 @@ Several approaches to generate random numbers, next is a list ordered by perform
 <div style="page-break-after: always"></div>
 
 ## 9. Hashing
+Hashing vs. Encoding? 🍅🤓
 
 ### Definition
 1. __Hashing__: Convert data to a random-looking string

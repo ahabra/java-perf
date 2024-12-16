@@ -2,6 +2,7 @@ package com.tek271.javaperf.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Author {
 	public static final Author ADAMS = new Author("Douglas", "Adams", "UK");
@@ -28,5 +29,10 @@ public class Author {
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	@Override
+	public String toString() {
+		return firstName + " " + lastName + ", " + country;
 	}
 }
